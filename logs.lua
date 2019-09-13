@@ -1,7 +1,6 @@
-notify.add("event log by kazoomy")
+notify.add("event log by kazumi")
 
 local event_log = menu.add_checkbox("event log", "misc", false, 0)
-
 
 local hitgroups =
 {
@@ -16,7 +15,7 @@ local hitgroups =
 }
 
 function on_player_hurt(e)
-    if menu.get_value(damage_log) ~= 1 then
+    if menu.get_value(event_log) ~= 1 then
       return
     end
 
@@ -42,29 +41,6 @@ function on_item_purchase(e)
     if entity.is_enemy(user_id) == true then
       notify.add(entity.get_name(user_id) .. " purchased " .. e.weapon)
     end
-end
-
-function on_bomb_planted(e)
-
-    if menu.get_value(event_log) ~= 1 then
-      return
-    end
-
-	local site_name = "؜bomb site"
-	
-    if e.site == 425 then
-        site_name = "A"
-    end
-	
-	if e.site == 426 then
-        site_name = "B"
-    end
-	
-    local user = e.userid
-    local user_id = entity.get_userid(user)
-
-    notify.add(entity.get_name(user_id) .. " planted at " .. site_name)
-
 end
 
 function on_bomb_defused(e)
@@ -109,9 +85,7 @@ end
 client.set_event_callback("player_hurt","on_player_hurt")
 client.set_event_callback("item_purchase","on_item_purchase")
 
-
 client.set_event_callback("bomb_beginplant","on_bomb_beginplant")
-client.set_event_callback("bomb_planted","on_bomb_planted")
 client.set_event_callback("bomb_begindefuse","on_bomb_begindefuse")
 client.set_event_callback("bomb_defused","on_bomb_defused")
 
